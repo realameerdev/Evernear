@@ -1,0 +1,7 @@
+{
+  "name": "Evernear",
+  "description": "A private AI experience that lets people create a conversational AI recreation of someone meaningful from their past, shaped by their memories, personality, stories, and voice description.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+

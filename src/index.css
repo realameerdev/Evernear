@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Manrope', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Manrope', Georgia, serif;
+  --font-mono: 'Manrope', monospace;
+}
+
+*, *::before, *::after {
+  font-family: 'Manrope', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
+
+html, body {
+  font-family: 'Manrope', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  scroll-behavior: smooth;
+  background-color: #FAF8F5;
+  color: #1A1A1A;
+  overflow-x: hidden;
+}
+
+button, input, textarea, select, a, p, span, h1, h2, h3, h4, h5, h6, div {
+  font-family: 'Manrope', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
+
+/* Atmospheric subtle glows matching reference */
+.glow-teal-subtle {
+  background: radial-gradient(circle at 60% 40%, rgba(94, 234, 212, 0.22) 0%, rgba(45, 212, 191, 0.08) 45%, transparent 70%);
+}
+
+.glow-teal-center {
+  background: radial-gradient(ellipse at center, rgba(94, 234, 212, 0.28) 0%, rgba(20, 184, 166, 0.06) 50%, transparent 75%);
+}
+
+/* Subtle dotted line dash array for memory trajectory */
+.memory-trajectory-dash {
+  stroke-dasharray: 4 6;
+}
+
+@keyframes gentle-float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(0.5deg);
+  }
+}
+
+.animate-gentle-float {
+  animation: gentle-float 8s ease-in-out infinite;
+}
+
