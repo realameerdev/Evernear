@@ -3,6 +3,10 @@ import { Send, Play, Pause, Bookmark, RefreshCw } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { playVoiceSnippet, stopVoicePlayback } from '../utils/voiceSynthesis.ts';
 import grandfatherImg from '../assets/images/hero_portrait_grandfather_1790833138810.jpg';
+import africanMotherImg from '../assets/images/african_mother_portrait_1790838685416.jpg';
+import africanYoungManImg from '../assets/images/african_young_man_portrait_1790838702408.jpg';
+import africanElderImg from '../assets/images/african_elder_portrait_1790838665199.jpg';
+import motherImg from '../assets/images/hero_portrait_mother_1790833151693.jpg';
 
 interface ConversationScenario {
   id: string;
@@ -10,6 +14,7 @@ interface ConversationScenario {
   relation: string;
   avatar: string;
   tone: string;
+  gender: 'female' | 'male';
   prompts: {
     prompt: string;
     response: string;
@@ -20,11 +25,43 @@ interface ConversationScenario {
 
 const SCENARIOS: ConversationScenario[] = [
   {
+    id: 'amina',
+    name: 'Mama Amina',
+    relation: 'Mother',
+    avatar: africanMotherImg,
+    tone: 'Radiant · Nurturing · Unshakeable',
+    gender: 'female',
+    prompts: [
+      {
+        prompt: "Mama, I’ve been feeling so tired and doubting myself this week.",
+        response:
+          "My child, look at how far you’ve walked already! When you were small and fell down learning to ride that red bicycle, what did I tell you? Dust your knees off, hold your head high, and remember whose strength you carry. You are built for greater things than this small obstacle.",
+        memoryTriggered: "Memory: Learning to ride red bicycle & kitchen blessings, 2002",
+        audioDuration: "0:44",
+      },
+      {
+        prompt: "Tell me what you remember about the family dinners we used to host.",
+        response:
+          "Ah, the whole compound would smell of warm jollof, fried plantains, and sweet coconut bread by three o’clock! Your uncles would argue about soccer while you children ran under the mango tree. Those laughs filled up my whole heart. That warmth never leaves you.",
+        memoryTriggered: "Memory: Sunday family feasts under the mango tree",
+        audioDuration: "0:52",
+      },
+      {
+        prompt: "How do I make peace with making big life decisions?",
+        response:
+          "Pray over your steps, listen to the quiet voice inside your chest, and step forward with conviction. Whatever happens, grace will meet you on the road. Now make sure you’ve eaten properly today!",
+        memoryTriggered: "Memory: Signature maternal encouragement & kitchen table wisdom",
+        audioDuration: "0:39",
+      },
+    ],
+  },
+  {
     id: 'grandpa',
     name: 'Arthur Vance',
     relation: 'Grandfather',
     avatar: grandfatherImg,
     tone: 'Gentle · Unhurried · Nostalgic',
+    gender: 'male',
     prompts: [
       {
         prompt: "Grandpa, I’m feeling really overwhelmed with all the noise right now.",
@@ -49,15 +86,56 @@ const SCENARIOS: ConversationScenario[] = [
       },
     ],
   },
+  {
+    id: 'kofi',
+    name: 'Kofi Adebayo',
+    relation: 'Brother',
+    avatar: africanYoungManImg,
+    tone: 'Playful · Loyal · Energetic',
+    gender: 'male',
+    prompts: [
+      {
+        prompt: "Bro, remember when we tried to fix that old car engine before our road trip?",
+        response:
+          "Man, we spent five hours covered in black oil only to realize we had plugged the battery backwards! But when the engine finally turned over and we blasted that playlist all the way to the coast, nobody could touch us. Best memories of my life, bro.",
+        memoryTriggered: "Memory: Coast road trip & engine breakdown, July 2018",
+        audioDuration: "0:46",
+      },
+      {
+        prompt: "I’m thinking about launching that project we always talked about.",
+        response:
+          "Stop overthinking and just go for it! You’ve always had the best vision out of all of us. Remember our pact: don’t let fear decide your ceiling. I’m cheering you on from wherever I am!",
+        memoryTriggered: "Memory: Late night startup dreams & dorm room whiteboard",
+        audioDuration: "0:41",
+      },
+      {
+        prompt: "Things feel pretty quiet without your crazy jokes around.",
+        response:
+          "Hey, someone has to keep things interesting! Whenever you hear an awful pun or catch yourself laughing at something absurd, just know that’s me reminding you not to take life too seriously.",
+        memoryTriggered: "Memory: Signature banter & brotherly camaraderie",
+        audioDuration: "0:38",
+      },
+    ],
+  },
 ];
 
 export const ConversationExperience: React.FC = () => {
-  const scenario = SCENARIOS[0];
+  const [selectedScenarioIndex, setSelectedScenarioIndex] = useState(0);
+  const scenario = SCENARIOS[selectedScenarioIndex];
   const [selectedPromptIndex, setSelectedPromptIndex] = useState(0);
   const [isTyping, setIsTyping] = useState(false);
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
   const [userInput, setUserInput] = useState('');
   const [activeMessage, setActiveMessage] = useState(scenario.prompts[0]);
+
+  const handleScenarioChange = (index: number) => {
+    if (index === selectedScenarioIndex) return;
+    stopVoicePlayback();
+    setIsPlayingAudio(false);
+    setSelectedScenarioIndex(index);
+    setSelectedPromptIndex(0);
+    setActiveMessage(SCENARIOS[index].prompts[0]);
+  };
 
   const handleSelectPrompt = (index: number) => {
     if (index === selectedPromptIndex && !isTyping) return;
@@ -85,7 +163,7 @@ export const ConversationExperience: React.FC = () => {
     setTimeout(() => {
       setActiveMessage({
         prompt: customUserText,
-        response: `“I hear you, sweetheart. When you asked me about this years ago, remember what we said? You always knew what was right deep down. Give yourself the kindness you give to everyone else.”`,
+        response: `“I hear you. When you asked me about this years ago, remember what we said? You always knew what was right deep down. Give yourself the kindness and courage you've always had.”`,
         memoryTriggered: "Memory: Living advice repository & signature reassurance",
         audioDuration: "0:36",
       });
@@ -98,12 +176,13 @@ export const ConversationExperience: React.FC = () => {
       stopVoicePlayback();
       setIsPlayingAudio(false);
     } else {
+      const isFemale = scenario.gender === 'female';
       playVoiceSnippet(
         activeMessage.response,
         {
-          pitch: 0.85,
-          rate: 0.88,
-          genderPreference: 'male',
+          pitch: isFemale ? 1.1 : 0.88,
+          rate: 0.9,
+          genderPreference: scenario.gender,
         },
         () => setIsPlayingAudio(true),
         () => setIsPlayingAudio(false)
@@ -141,6 +220,36 @@ export const ConversationExperience: React.FC = () => {
             Experience how Evernear captures the cadence, phrases, and comforting familiarity of someone who meant the world to you.
           </p>
         </motion.div>
+
+        {/* Persona Scenario Switcher - Mobile Responsive Wrapping Pills */}
+        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-8 px-2 max-w-3xl mx-auto">
+          {SCENARIOS.map((s, idx) => {
+            const isSelected = idx === selectedScenarioIndex;
+            return (
+              <button
+                key={s.id}
+                onClick={() => handleScenarioChange(idx)}
+                className={`flex items-center gap-2 sm:gap-2.5 px-3.5 sm:px-4 py-2 rounded-full border text-xs font-semibold transition-all cursor-pointer shadow-2xs ${
+                  isSelected
+                    ? 'bg-neutral-900 text-white border-neutral-900 shadow-xs'
+                    : 'bg-white text-neutral-700 border-neutral-200/90 hover:border-neutral-300 hover:bg-neutral-50'
+                }`}
+              >
+                <img
+                  src={s.avatar}
+                  alt={s.name}
+                  className="w-5 h-5 rounded-full object-cover shrink-0"
+                />
+                <span className="whitespace-nowrap">{s.name}</span>
+                <span className={`text-[10px] font-normal px-1.5 py-0.5 rounded-full shrink-0 ${
+                  isSelected ? 'bg-neutral-800 text-teal-300' : 'bg-neutral-100 text-neutral-500'
+                }`}>
+                  {s.relation}
+                </span>
+              </button>
+            );
+          })}
+        </div>
 
         {/* Interactive Experience Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">

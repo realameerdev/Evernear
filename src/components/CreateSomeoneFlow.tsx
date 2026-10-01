@@ -10,6 +10,10 @@ import grandfatherImg from '../assets/images/hero_portrait_grandfather_179083313
 import motherImg from '../assets/images/hero_portrait_mother_1790833151693.jpg';
 import mentorImg from '../assets/images/showcase_portrait_mentor_1790833162721.jpg';
 import friendImg from '../assets/images/experience_portrait_friend_1790833172428.jpg';
+import africanElderImg from '../assets/images/african_elder_portrait_1790838665199.jpg';
+import africanMotherImg from '../assets/images/african_mother_portrait_1790838685416.jpg';
+import africanYoungManImg from '../assets/images/african_young_man_portrait_1790838702408.jpg';
+import africanGirlImg from '../assets/images/african_girl_portrait_1790838715303.jpg';
 
 interface CreateSomeoneFlowProps {
   onCancel: () => void;
@@ -24,10 +28,14 @@ const STEPS = [
 ];
 
 const PRESET_PHOTOS = [
-  { name: 'Grandfather', url: grandfatherImg },
-  { name: 'Mother', url: motherImg },
-  { name: 'Mentor', url: mentorImg },
-  { name: 'Friend', url: friendImg },
+  { name: 'Baba / Elder', url: africanElderImg },
+  { name: 'Mama / Mother', url: africanMotherImg },
+  { name: 'Brother / Friend', url: africanYoungManImg },
+  { name: 'Little Sister / Child', url: africanGirlImg },
+  { name: 'Grandpa Arthur', url: grandfatherImg },
+  { name: 'Mother Eleanor', url: motherImg },
+  { name: 'Mentor David', url: mentorImg },
+  { name: 'Friend Maya', url: friendImg },
 ];
 
 export const CreateSomeoneFlow: React.FC<CreateSomeoneFlowProps> = ({

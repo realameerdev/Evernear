@@ -3,10 +3,67 @@ import grandfatherImg from '../assets/images/hero_portrait_grandfather_179083313
 import motherImg from '../assets/images/hero_portrait_mother_1790833151693.jpg';
 import mentorImg from '../assets/images/showcase_portrait_mentor_1790833162721.jpg';
 import friendImg from '../assets/images/experience_portrait_friend_1790833172428.jpg';
+import africanElderImg from '../assets/images/african_elder_portrait_1790838665199.jpg';
+import africanMotherImg from '../assets/images/african_mother_portrait_1790838685416.jpg';
+import africanYoungManImg from '../assets/images/african_young_man_portrait_1790838702408.jpg';
 
-const VAULT_STORAGE_KEY = 'evernear_private_vault_people_v2';
+const VAULT_STORAGE_KEY = 'evernear_private_vault_people_v3';
 
-const INITIAL_SEEDS: CreatedPerson[] = [
+export const INITIAL_SEEDS: CreatedPerson[] = [
+  {
+    id: 'seed-baba-kwame',
+    name: 'Baba Kwame',
+    relationship: 'Grandparent',
+    gender: 'male',
+    photoUrl: africanElderImg,
+    personality: 'Deeply wise, serene, and observant. Spoke with proverbs and never hurried through an answer. Loved spending quiet evenings under the shade of the mango tree drinking herbal tea.',
+    voiceDescription: 'Resonant, warm baritone with a steady, gentle rhythm. Pauses before speaking with profound calm.',
+    memories: 'Told us stories of his youth building the family home in 1968. Every holiday he gathered all the grandchildren and reminded us: “A deep tree does not fear the wind; stand tall in who you are.”',
+    createdAt: '2026-09-15T10:00:00.000Z',
+    lastConversationAt: '2026-09-30T16:20:00.000Z',
+    conversationHistory: [
+      {
+        id: 'msg-kwame-1',
+        sender: 'user',
+        text: 'Baba, I’m feeling worried about the new path I am choosing.',
+        timestamp: '2026-09-30T16:19:00.000Z',
+      },
+      {
+        id: 'msg-kwame-2',
+        sender: 'ai',
+        text: '“A deep tree does not fear the wind, my child. What is rooted inside you will carry you through every season. Step forward with an honest heart.”',
+        timestamp: '2026-09-30T16:20:00.000Z',
+        memoryReferenced: 'Memory: Evening porch counsel & grandfather proverbs',
+      },
+    ],
+  },
+  {
+    id: 'seed-mama-amina',
+    name: 'Mama Amina',
+    relationship: 'Mother',
+    gender: 'female',
+    photoUrl: africanMotherImg,
+    personality: 'Vibrant, loving, fiercely protective, and full of faith. Had an unmistakable laugh and loved cooking large Sunday feasts for everyone in the neighborhood.',
+    voiceDescription: 'Melodic, warm, and uplifting. Often chuckled softly and called you by affectionate family nicknames.',
+    memories: 'Her Sunday jollof feasts and sweet coconut bread. Whenever I faced a tough exam or interview, she would hold my hands and say: “Lift your chin up and walk in like you belong.”',
+    createdAt: '2026-09-18T12:00:00.000Z',
+    lastConversationAt: '2026-09-29T14:10:00.000Z',
+    conversationHistory: [
+      {
+        id: 'msg-amina-1',
+        sender: 'user',
+        text: 'Mama, I got the new position today!',
+        timestamp: '2026-09-29T14:09:00.000Z',
+      },
+      {
+        id: 'msg-amina-2',
+        sender: 'ai',
+        text: '“I knew it! Look at you shining! I told you your hard work and blessings would open every door. Celebrate today, sweetheart!”',
+        timestamp: '2026-09-29T14:10:00.000Z',
+        memoryReferenced: 'Memory: Kitchen blessings & Sunday feasts',
+      },
+    ],
+  },
   {
     id: 'seed-arthur-vance',
     name: 'Dad',
@@ -35,8 +92,35 @@ const INITIAL_SEEDS: CreatedPerson[] = [
     ],
   },
   {
+    id: 'seed-kofi-adebayo',
+    name: 'Brother Kofi',
+    relationship: 'Brother',
+    gender: 'male',
+    photoUrl: africanYoungManImg,
+    personality: 'Playful, fiercely loyal, energetic, and creative. The person who always encouraged spontaneous road trips and stayed up late working on big dreams.',
+    voiceDescription: 'Upbeat, friendly baritone with a quick laugh and casual, warm cadence.',
+    memories: 'Our coastal road trip in July 2018 when the radiator broke down and we ended up laughing all night singing to old cassettes in the rain.',
+    createdAt: '2026-09-21T11:00:00.000Z',
+    lastConversationAt: '2026-09-28T19:30:00.000Z',
+    conversationHistory: [
+      {
+        id: 'msg-kofi-1',
+        sender: 'user',
+        text: 'Kofi, I’m listening to that old road trip playlist right now.',
+        timestamp: '2026-09-28T19:29:00.000Z',
+      },
+      {
+        id: 'msg-kofi-2',
+        sender: 'ai',
+        text: '“Turn it all the way up, bro! Best trip of our lives. Never forget the dreams we talked about on that road!”',
+        timestamp: '2026-09-28T19:30:00.000Z',
+        memoryReferenced: 'Memory: July 2018 coastal trip & playlists',
+      },
+    ],
+  },
+  {
     id: 'seed-eleanor-vance',
-    name: 'Grandma',
+    name: 'Grandma Eleanor',
     relationship: 'Grandparent',
     gender: 'female',
     photoUrl: motherImg,
@@ -63,7 +147,7 @@ const INITIAL_SEEDS: CreatedPerson[] = [
   },
   {
     id: 'seed-david-chen',
-    name: 'Mentor',
+    name: 'Professor David',
     relationship: 'Mentor',
     gender: 'male',
     photoUrl: mentorImg,
@@ -90,7 +174,7 @@ const INITIAL_SEEDS: CreatedPerson[] = [
   },
   {
     id: 'seed-maya-lin',
-    name: 'Childhood Friend',
+    name: 'Childhood Friend Maya',
     relationship: 'Friend',
     gender: 'female',
     photoUrl: friendImg,
@@ -117,19 +201,29 @@ const INITIAL_SEEDS: CreatedPerson[] = [
   },
 ];
 
+// New users start with a blank sanctuary (empty list)
 export const getVaultPeople = (): CreatedPerson[] => {
   try {
     const raw = localStorage.getItem(VAULT_STORAGE_KEY);
     if (!raw) {
-      localStorage.setItem(VAULT_STORAGE_KEY, JSON.stringify(INITIAL_SEEDS));
-      return INITIAL_SEEDS;
+      localStorage.setItem(VAULT_STORAGE_KEY, JSON.stringify([]));
+      return [];
     }
     const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) && parsed.length > 0 ? parsed : INITIAL_SEEDS;
+    return Array.isArray(parsed) ? parsed : [];
   } catch (err) {
     console.error('Error reading from Evernear vault storage:', err);
-    return INITIAL_SEEDS;
+    return [];
   }
+};
+
+export const loadSampleTributes = (): CreatedPerson[] => {
+  try {
+    localStorage.setItem(VAULT_STORAGE_KEY, JSON.stringify(INITIAL_SEEDS));
+  } catch (err) {
+    console.error('Error seeding sample tributes:', err);
+  }
+  return INITIAL_SEEDS;
 };
 
 export const savePersonToVault = (

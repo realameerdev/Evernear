@@ -124,7 +124,7 @@ export const HowItWorks: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="flex items-center justify-center gap-2 overflow-x-auto pb-4 mb-12 no-scrollbar"
+          className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-10 sm:mb-12 px-2 max-w-4xl mx-auto"
         >
           {steps.map((s, index) => {
             const isActive = index === activeStep;
@@ -132,16 +132,16 @@ export const HowItWorks: React.FC = () => {
               <button
                 key={s.number}
                 onClick={() => setActiveStep(index)}
-                className={`flex items-center gap-2.5 px-5 py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 whitespace-nowrap cursor-pointer ${
+                className={`flex items-center gap-2 sm:gap-2.5 px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 cursor-pointer ${
                   isActive
-                    ? 'bg-neutral-900 text-white shadow-sm'
-                    : 'bg-white text-neutral-600 hover:text-neutral-900 border border-neutral-200/80 shadow-xs'
+                    ? 'bg-neutral-900 text-white shadow-xs'
+                    : 'bg-white text-neutral-600 hover:text-neutral-900 border border-neutral-200/80 shadow-2xs'
                 }`}
               >
                 <span className={`font-mono text-xs ${isActive ? 'text-teal-300' : 'text-neutral-400'}`}>
                   {s.number}
                 </span>
-                <span>{s.shortTitle}</span>
+                <span className="whitespace-nowrap">{s.shortTitle}</span>
               </button>
             );
           })}

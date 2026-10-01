@@ -1,6 +1,6 @@
 import React from 'react';
 import { EvernearLogo } from './EvernearLogo.tsx';
-import { Heart, ShieldCheck, ArrowUpRight } from 'lucide-react';
+import { Heart, ShieldCheck, ArrowUpRight, Coffee, Sparkles } from 'lucide-react';
 
 interface FooterProps {
   onCreateClick: () => void;
@@ -8,9 +8,43 @@ interface FooterProps {
 }
 
 export const Footer: React.FC<FooterProps> = ({ onCreateClick, onHowItWorksClick }) => {
+  const BUY_ME_A_COFFEE_URL = "https://devameer.xyz/buy-me-a-coffee";
+
   return (
     <footer className="bg-[#FAF8F5] border-t border-neutral-200/80 pt-16 pb-12 text-neutral-600">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        
+        {/* Buy Me A Coffee Support Banner */}
+        <div className="mb-14 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-[#FFFBF0] via-[#FFFDF5] to-[#F0FDFA] border border-[#FDE68A]/80 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4 text-center sm:text-left flex-col sm:flex-row">
+            <div className="w-12 h-12 rounded-2xl bg-[#FFDD00] text-neutral-900 flex items-center justify-center shrink-0 shadow-sm border border-[#E6C700]">
+              <Coffee className="w-6 h-6" />
+            </div>
+            <div>
+              <div className="flex items-center justify-center sm:justify-start gap-2">
+                <h3 className="text-base font-bold text-neutral-900">Support the Sanctuary</h3>
+                <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-200">
+                  Creator Fund
+                </span>
+              </div>
+              <p className="text-xs sm:text-sm text-neutral-600 mt-1 max-w-xl">
+                Evernear is maintained with love and reverence. If this memory sanctuary brought comfort to your heart, consider buying a warm cup of coffee to support server & voice hosting.
+              </p>
+            </div>
+          </div>
+
+          <a
+            href={BUY_ME_A_COFFEE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-6 py-3 rounded-full bg-[#FFDD00] hover:bg-[#FACC15] text-neutral-950 text-xs sm:text-sm font-bold shadow-sm hover:shadow-md transition-all flex items-center gap-2 shrink-0 group border border-[#E6C700]"
+          >
+            <Coffee className="w-4 h-4 text-neutral-900 group-hover:rotate-12 transition-transform" />
+            <span>Buy me a coffee</span>
+            <ArrowUpRight className="w-3.5 h-3.5 text-neutral-700 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+          </a>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-neutral-200/70">
           
           {/* Brand & Manifesto Column (Span 5) */}
@@ -101,6 +135,17 @@ export const Footer: React.FC<FooterProps> = ({ onCreateClick, onHowItWorksClick
             >
               Talk to someone
             </button>
+
+            <a
+              href={BUY_ME_A_COFFEE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-2 w-full py-2.5 px-4 text-xs font-semibold text-neutral-800 bg-[#FFDD00]/90 hover:bg-[#FFDD00] rounded-full transition-all text-center shadow-2xs flex items-center justify-center gap-1.5 border border-[#E6C700]"
+            >
+              <Coffee className="w-3.5 h-3.5 text-neutral-900" />
+              <span>Buy me a coffee</span>
+              <ArrowUpRight className="w-3 h-3 text-neutral-600" />
+            </a>
           </div>
 
         </div>
@@ -120,8 +165,13 @@ export const Footer: React.FC<FooterProps> = ({ onCreateClick, onHowItWorksClick
             <a href="#privacy" className="hover:text-neutral-700 transition-colors">
               Terms of Remembrance
             </a>
-            <a href="#privacy" className="hover:text-neutral-700 transition-colors">
-              Security Whitepaper
+            <a
+              href={BUY_ME_A_COFFEE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-amber-700 font-medium text-amber-900/80 transition-colors flex items-center gap-1"
+            >
+              <span>☕ Support Project</span>
             </a>
           </div>
         </div>

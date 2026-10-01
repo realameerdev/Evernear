@@ -97,6 +97,13 @@ export default function App() {
     }
   };
 
+  const handlePersonDeletedById = (personId: string) => {
+    refreshVault();
+    if (activePerson && activePerson.id === personId) {
+      setActivePerson(null);
+    }
+  };
+
   // View: Create Someone Flow
   if (currentView === 'create') {
     return (
@@ -139,6 +146,8 @@ export default function App() {
           onCreateNew={handleStartCreate}
           onOpenConversation={(p) => setConversationTargetPerson(p)}
           onReturnToLanding={() => setCurrentView('landing')}
+          onDeletePerson={handlePersonDeletedById}
+          onRefreshVault={refreshVault}
         />
         <ConversationDialog
           person={conversationTargetPerson}

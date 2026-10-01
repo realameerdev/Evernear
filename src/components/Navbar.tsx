@@ -89,7 +89,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }`}
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-teal-500" />
-                <span>My People ({peopleCount})</span>
+                <span>My People {peopleCount > 0 ? `(${peopleCount})` : ''}</span>
               </button>
             )}
 

@@ -6,6 +6,10 @@ import mentorImg from '../assets/images/showcase_portrait_mentor_1790833162721.j
 import grandfatherImg from '../assets/images/hero_portrait_grandfather_1790833138810.jpg';
 import motherImg from '../assets/images/hero_portrait_mother_1790833151693.jpg';
 import friendImg from '../assets/images/experience_portrait_friend_1790833172428.jpg';
+import africanElderImg from '../assets/images/african_elder_portrait_1790838665199.jpg';
+import africanMotherImg from '../assets/images/african_mother_portrait_1790838685416.jpg';
+import africanYoungManImg from '../assets/images/african_young_man_portrait_1790838702408.jpg';
+import africanGirlImg from '../assets/images/african_girl_portrait_1790838715303.jpg';
 
 interface PersonaData {
   id: string;
@@ -22,16 +26,53 @@ interface PersonaData {
   };
   audioQuote: string;
   voiceNoteLength: string;
+  gender?: 'female' | 'male';
 }
 
 const PERSONA_LIST: PersonaData[] = [
   {
-    id: 'grandparents',
-    category: 'Grandparents',
-    roleTitle: 'Grandparents & Elders',
+    id: 'grandparents-african',
+    category: 'Elders & Patriarchs',
+    roleTitle: 'Grandparents & Family Elders',
+    subtitle: 'Generational wisdom, timeless patience, and stories carried across decades.',
+    description:
+      'Recreate the calm, anchoring presence of an elder whose counsel brought peace to the entire family. Evernear preserves their cadence, deep laugh, proverb-rich storytelling, and gentle reassurance.',
+    tags: ['Generational Wisdom', 'Family Storytelling', 'Evening Counsel', 'Quiet Patience'],
+    image: africanElderImg,
+    altText: 'Elderly African grandfather with warm eyes and a dignified, gentle smile',
+    sampleDialogue: {
+      question: "“Baba, how did you stay so steady when everything around you was changing?”",
+      answer: "“A deep tree does not fear the wind, my child. What you have built inside cannot be shaken by the noise of the day. Walk quietly, do the good work, and remember who you are.”",
+    },
+    audioQuote: "“A deep tree does not fear the wind. Walk quietly and remember who you are.”",
+    voiceNoteLength: "0:45",
+    gender: 'male',
+  },
+  {
+    id: 'parents-african',
+    category: 'Mothers & Caregivers',
+    roleTitle: 'Mothers & Matriarchs',
+    subtitle: 'The radiant warmth of the one who nurtured your dreams and celebrated every small victory.',
+    description:
+      'Whether it was her effortless singing in the kitchen, loving check-ins, or unyielding belief in your future, Evernear captures the melody of a mother’s voice so her blessings and advice remain forever near.',
+    tags: ['Unconditional Love', 'Morning Blessings', 'Signature Recipes', 'Unbreakable Faith'],
+    image: africanMotherImg,
+    altText: 'Warm, radiant African mother with a joyful smile',
+    sampleDialogue: {
+      question: "“Mama, I’m feeling so nervous about the new path I’m starting.”",
+      answer: "“Look at how far grace has brought you already. Lift your chin up! Put on your best smile and walk in like you own the room. I’m praying over your steps every single day.”",
+    },
+    audioQuote: "“Lift your chin up! I’m praying over your steps every single day.”",
+    voiceNoteLength: "0:41",
+    gender: 'female',
+  },
+  {
+    id: 'grandparents-arthur',
+    category: 'Grandfathers',
+    roleTitle: 'Grandfathers & Mentors',
     subtitle: 'The wisdom of generational patience and stories of an era you never want to fade.',
     description:
-      'Recreate the quiet, steady warmth of a grandparent who listened without judgment. Evernear preserves their cadence, unhurried pacing, favorite historical anecdotes, and gentle reassurances when modern life feels overwhelming.',
+      'Recreate the quiet, steady warmth of a grandfather who listened without judgment. Evernear preserves their cadence, unhurried pacing, favorite historical anecdotes, and gentle reassurances.',
     tags: ['Generational Wisdom', 'Fireside Stories', 'Sunday Dinners', 'Quiet Reassurance'],
     image: grandfatherImg,
     altText: 'Elderly grandfather with a gentle smile and crinkled eyes',
@@ -41,14 +82,33 @@ const PERSONA_LIST: PersonaData[] = [
     },
     audioQuote: "“You don't need to see the whole field, just the next row.”",
     voiceNoteLength: "0:38",
+    gender: 'male',
   },
   {
-    id: 'parents',
-    category: 'Parents',
-    roleTitle: 'Mothers & Fathers',
+    id: 'brothers-african',
+    category: 'Brothers & Companions',
+    roleTitle: 'Brothers & Best Friends',
+    subtitle: 'Shared ambitions, late-night car rides, and the laughter of someone who had your back.',
+    description:
+      'Preserve the effortless humor, banter, favorite songs, and unfiltered brotherhood. A space to share milestones, laugh at inside memories, and feel their encouraging energy whenever you need a boost.',
+    tags: ['Unfiltered Brotherhood', 'Shared Dreams', 'Inside Jokes', 'Midnight Conversations'],
+    image: africanYoungManImg,
+    altText: 'Smiling young African man in a navy sweater with an authentic laugh',
+    sampleDialogue: {
+      question: "“Remember that crazy road trip when our radiator blew out?”",
+      answer: "“Man, we pushed that car half a mile in the pouring rain while laughing our heads off! You panicked for five minutes and then started singing. Best adventure we ever had, bro.”",
+    },
+    audioQuote: "“We pushed that car half a mile while laughing our heads off! Best adventure ever.”",
+    voiceNoteLength: "0:39",
+    gender: 'male',
+  },
+  {
+    id: 'parents-eleanor',
+    category: 'Mothers & Grandmothers',
+    roleTitle: 'Mothers & Family Anchors',
     subtitle: 'The reassuring comfort of the voice that knew you before you knew yourself.',
     description:
-      'Whether it was their infectious kitchen laughter, idiosyncratic sayings, or unconditional belief in your potential, Evernear captures the personal rhythm of a parent’s love so you can still ask for advice or hear them say your name.',
+      'Whether it was her infectious kitchen laughter, handwritten recipes, or unconditional belief in your potential, Evernear captures the rhythm of her love so you can still ask for advice.',
     tags: ['Kitchen Laughter', 'Practical Advice', 'Unconditional Faith', 'Old Sayings'],
     image: motherImg,
     altText: 'Warm, smiling mother with an authentic laugh',
@@ -58,14 +118,15 @@ const PERSONA_LIST: PersonaData[] = [
     },
     audioQuote: "“Trust yourself like I always did. You’ve got this, sweetheart.”",
     voiceNoteLength: "0:44",
+    gender: 'female',
   },
   {
     id: 'mentors',
-    category: 'Mentors & Teachers',
+    category: 'Teachers & Mentors',
     roleTitle: 'Teachers & Guides',
     subtitle: 'The intellectual spark and disciplined clarity of someone who shaped your worldview.',
     description:
-      'Preserve the rigorous advice, recommended books, philosophical insights, and honest critique of the mentor who altered the course of your life. Return to their counsel when facing career forks or creative blocks.',
+      'Preserve the rigorous advice, recommended books, philosophical insights, and honest critique of the mentor who altered the course of your life.',
     tags: ['Intellectual Honesty', 'Craft Guidance', 'Book Recommendations', 'Long-term Thinking'],
     image: mentorImg,
     altText: 'Distinguished silver-haired professor with thoughtful, kind eyes',
@@ -75,6 +136,25 @@ const PERSONA_LIST: PersonaData[] = [
     },
     audioQuote: "“That discomfort means your taste has outgrown your execution.”",
     voiceNoteLength: "0:51",
+    gender: 'male',
+  },
+  {
+    id: 'children-african',
+    category: 'Little Ones & Daughters',
+    roleTitle: 'Children & Little Angels',
+    subtitle: 'Pure laughter, boundless curiosity, and innocence that touched everyone around them.',
+    description:
+      'Remember their delightful stories, favorite bedtime songs, playful nicknames, and the sunshine they brought into the house every single morning.',
+    tags: ['Pure Joy', 'Playful Nicknames', 'Bedtime Stories', 'Golden Sunshine'],
+    image: africanGirlImg,
+    altText: 'Joyful young African girl laughing in garden sunlight',
+    sampleDialogue: {
+      question: "“What was your favorite thing we did at the park?”",
+      answer: "“The giant swing where you pushed me super high up to the clouds! And then we got strawberry ice cream that melted all over my hands!”",
+    },
+    audioQuote: "“The giant swing where you pushed me super high to the clouds!”",
+    voiceNoteLength: "0:29",
+    gender: 'female',
   },
   {
     id: 'friends',
@@ -82,7 +162,7 @@ const PERSONA_LIST: PersonaData[] = [
     roleTitle: 'Childhood & Dearest Friends',
     subtitle: 'The inside jokes, shared road trips, and unspoken understanding of a companion.',
     description:
-      'Capture the playful banter, music tastes, shared memories, and effortless rapport of a friend who knew every secret. A sanctuary to reminisce over old escapades or share moments you wish they were here to see.',
+      'Capture the playful banter, music tastes, shared memories, and effortless rapport of a friend who knew every secret.',
     tags: ['Inside Jokes', 'Late Night Drives', 'Shared Playlists', 'Unfiltered Banter'],
     image: friendImg,
     altText: 'Young woman smiling warmly in coastal late afternoon light',
@@ -92,6 +172,7 @@ const PERSONA_LIST: PersonaData[] = [
     },
     audioQuote: "“Best trip of our lives. We survived on diner pie!”",
     voiceNoteLength: "0:36",
+    gender: 'female',
   },
 ];
 
@@ -118,16 +199,16 @@ export const WhatIsEvernear: React.FC = () => {
       stopVoicePlayback();
       setIsPlayingSample(false);
     } else {
-      const isGrandpa = current.id === 'grandparents';
-      const isMother = current.id === 'parents';
+      const isElder = current.id.includes('grandparents');
       const isMentor = current.id === 'mentors';
+      const isChild = current.id.includes('children');
       
       playVoiceSnippet(
         current.audioQuote,
         {
-          pitch: isGrandpa ? 0.82 : isMother ? 1.12 : isMentor ? 0.95 : 1.05,
-          rate: isGrandpa ? 0.85 : isMentor ? 0.9 : 0.92,
-          genderPreference: (isMother || current.id === 'friends') ? 'female' : 'male',
+          pitch: isElder ? 0.84 : isMentor ? 0.95 : isChild ? 1.25 : current.gender === 'female' ? 1.12 : 0.92,
+          rate: isElder ? 0.86 : isMentor ? 0.9 : isChild ? 1.05 : 0.94,
+          genderPreference: current.gender || 'female',
         },
         () => setIsPlayingSample(true),
         () => setIsPlayingSample(false)
@@ -166,7 +247,7 @@ export const WhatIsEvernear: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.5, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-          className="flex items-center gap-2 overflow-x-auto pb-4 mb-8 no-scrollbar"
+          className="flex items-center gap-2 overflow-x-auto pb-4 mb-8 no-scrollbar px-1 -mx-1"
         >
           {PERSONA_LIST.map((item, idx) => {
             const isActive = idx === activeIndex;

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Search, Plus, MessageSquare, ArrowRight, Shield, Clock, Heart, ArrowLeft } from 'lucide-react';
+import { Search, Plus, MessageSquare, ArrowRight, Shield, Clock, Heart, ArrowLeft, Trash2, AlertTriangle, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CreatedPerson } from '../types/person.ts';
 import { EvernearLogo } from './EvernearLogo.tsx';
+import { deletePersonFromVault, loadSampleTributes } from '../utils/vaultStorage.ts';
 
 interface MyPeopleWorkspaceProps {
   people: CreatedPerson[];
@@ -10,6 +11,8 @@ interface MyPeopleWorkspaceProps {
   onCreateNew: () => void;
   onOpenConversation: (person: CreatedPerson) => void;
   onReturnToLanding: () => void;
+  onDeletePerson?: (personId: string) => void;
+  onRefreshVault?: () => void;
 }
 
 export const MyPeopleWorkspace: React.FC<MyPeopleWorkspaceProps> = ({
@@ -18,8 +21,11 @@ export const MyPeopleWorkspace: React.FC<MyPeopleWorkspaceProps> = ({
   onCreateNew,
   onOpenConversation,
   onReturnToLanding,
+  onDeletePerson,
+  onRefreshVault,
 }) => {
   const [searchQuery, setSearchQuery] = useState('');
+  const [personToDelete, setPersonToDelete] = useState<CreatedPerson | null>(null);
 
   // Search only searches the user's private people
   const filteredPeople = people.filter((p) => {
@@ -32,6 +38,19 @@ export const MyPeopleWorkspace: React.FC<MyPeopleWorkspaceProps> = ({
       p.memories.toLowerCase().includes(q)
     );
   });
+
+  const handleDeleteConfirm = () => {
+    if (!personToDelete) return;
+    deletePersonFromVault(personToDelete.id);
+    if (onDeletePerson) onDeletePerson(personToDelete.id);
+    if (onRefreshVault) onRefreshVault();
+    setPersonToDelete(null);
+  };
+
+  const handleLoadSamples = () => {
+    loadSampleTributes();
+    if (onRefreshVault) onRefreshVault();
+  };
 
   // Recent conversations (people with conversation history)
   const recentConversations = people
@@ -195,36 +214,49 @@ export const MyPeopleWorkspace: React.FC<MyPeopleWorkspaceProps> = ({
           </div>
 
           {filteredPeople.length === 0 ? (
-            <div className="text-center py-16 px-6 rounded-3xl bg-white border border-neutral-200/80 space-y-4">
-              <div className="w-12 h-12 rounded-full bg-neutral-100 text-neutral-400 mx-auto flex items-center justify-center">
-                <Search className="w-6 h-6" />
+            <div className="text-center py-16 px-6 sm:py-20 sm:px-12 rounded-3xl bg-white border border-neutral-200/90 shadow-[0_10px_30px_rgba(0,0,0,0.02)] space-y-6 max-w-2xl mx-auto">
+              <div className="w-16 h-16 rounded-3xl bg-teal-50 border border-teal-100/80 text-teal-700 mx-auto flex items-center justify-center shadow-xs">
+                {searchQuery ? <Search className="w-7 h-7 text-neutral-400" /> : <Shield className="w-7 h-7 text-teal-600" />}
               </div>
-              <div className="space-y-1">
-                <h3 className="text-base font-bold text-neutral-900">
-                  {searchQuery ? 'No matching people found' : 'Your sanctuary is empty'}
+              <div className="space-y-2 max-w-md mx-auto">
+                <h3 className="text-xl sm:text-2xl font-bold text-neutral-900 tracking-tight">
+                  {searchQuery ? 'No matching people found' : 'Your private sanctuary is ready'}
                 </h3>
-                <p className="text-xs text-neutral-500 max-w-sm mx-auto">
+                <p className="text-sm text-neutral-600 leading-relaxed">
                   {searchQuery 
-                    ? `No private tributes match “${searchQuery}”. Search only checks your personal workspace.`
-                    : 'Choose someone meaningful to begin preserving their voice and memories.'
+                    ? `No private people match “${searchQuery}”. Search only checks your personal workspace.`
+                    : 'You haven’t added anyone yet. Create a conversational AI recreation of someone meaningful to you, shaped by your memories, voice descriptions, and stories.'
                   }
                 </p>
               </div>
-              {searchQuery ? (
-                <button
-                  onClick={() => setSearchQuery('')}
-                  className="px-4 py-2 rounded-full border border-neutral-300 text-xs font-medium text-neutral-700 hover:bg-neutral-100 cursor-pointer"
-                >
-                  Clear search
-                </button>
-              ) : (
-                <button
-                  onClick={onCreateNew}
-                  className="px-6 py-2.5 rounded-full bg-neutral-900 text-white text-xs font-semibold hover:bg-neutral-800 transition-all cursor-pointer"
-                >
-                  Talk to someone
-                </button>
-              )}
+              
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+                {searchQuery ? (
+                  <button
+                    onClick={() => setSearchQuery('')}
+                    className="px-5 py-2.5 rounded-full border border-neutral-300 text-xs font-medium text-neutral-700 hover:bg-neutral-100 cursor-pointer transition-colors"
+                  >
+                    Clear search
+                  </button>
+                ) : (
+                  <>
+                    <button
+                      onClick={onCreateNew}
+                      className="w-full sm:w-auto px-7 py-3 rounded-full bg-neutral-900 text-white text-xs font-semibold hover:bg-neutral-800 transition-all shadow-sm flex items-center justify-center gap-2 cursor-pointer"
+                    >
+                      <Plus className="w-4 h-4 text-teal-300" />
+                      <span>Add someone meaningful</span>
+                    </button>
+                    <button
+                      onClick={handleLoadSamples}
+                      className="w-full sm:w-auto px-5 py-3 rounded-full border border-neutral-300/90 text-neutral-700 text-xs font-medium hover:bg-neutral-50 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                    >
+                      <Sparkles className="w-3.5 h-3.5 text-teal-600" />
+                      <span>Load sample memories</span>
+                    </button>
+                  </>
+                )}
+              </div>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -247,7 +279,7 @@ export const MyPeopleWorkspace: React.FC<MyPeopleWorkspaceProps> = ({
                     <div className="p-6 sm:p-7 space-y-5">
                       
                       {/* Person Header Lockup */}
-                      <div className="flex items-start justify-between gap-4">
+                      <div className="flex items-start justify-between gap-3">
                         <div className="flex items-center gap-3.5">
                           <div 
                             onClick={() => onSelectPerson(person)}
@@ -273,6 +305,16 @@ export const MyPeopleWorkspace: React.FC<MyPeopleWorkspaceProps> = ({
                             </h3>
                           </div>
                         </div>
+
+                        {/* Direct Delete Trigger */}
+                        <button
+                          onClick={() => setPersonToDelete(person)}
+                          className="p-1.5 rounded-full text-neutral-400 hover:text-red-600 hover:bg-red-50 transition-colors cursor-pointer shrink-0"
+                          title={`Delete ${person.name}`}
+                          aria-label={`Delete ${person.name}`}
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
                       </div>
 
                       {/* Conversation / Memory Preview */}
@@ -298,20 +340,24 @@ export const MyPeopleWorkspace: React.FC<MyPeopleWorkspaceProps> = ({
 
                     {/* Card Actions Footer */}
                     <div className="px-6 py-3.5 bg-neutral-50/60 border-t border-neutral-100 flex items-center justify-between gap-3">
-                      <button
-                        onClick={() => onSelectPerson(person)}
-                        className="text-xs font-medium text-neutral-600 hover:text-neutral-900 transition-colors cursor-pointer"
-                      >
-                        View Profile
-                      </button>
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => onSelectPerson(person)}
+                          className="text-xs font-medium text-neutral-600 hover:text-neutral-900 transition-colors cursor-pointer"
+                        >
+                          View Profile
+                        </button>
+                      </div>
 
-                      <button
-                        onClick={() => onOpenConversation(person)}
-                        className="px-4 py-2 text-xs font-semibold text-white bg-neutral-900 hover:bg-neutral-800 rounded-full transition-all shadow-xs flex items-center gap-1.5 cursor-pointer"
-                      >
-                        <MessageSquare className="w-3 h-3 text-teal-300" />
-                        <span>Continue</span>
-                      </button>
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => onOpenConversation(person)}
+                          className="px-4 py-2 text-xs font-semibold text-white bg-neutral-900 hover:bg-neutral-800 rounded-full transition-all shadow-xs flex items-center gap-1.5 cursor-pointer"
+                        >
+                          <MessageSquare className="w-3 h-3 text-teal-300" />
+                          <span>Continue</span>
+                        </button>
+                      </div>
                     </div>
 
                   </div>
@@ -322,6 +368,51 @@ export const MyPeopleWorkspace: React.FC<MyPeopleWorkspaceProps> = ({
         </div>
 
       </main>
+
+      {/* Delete Confirmation Modal */}
+      <AnimatePresence>
+        {personToDelete && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-xs">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl border border-neutral-200 space-y-5"
+            >
+              <div className="w-12 h-12 rounded-2xl bg-red-50 text-red-600 flex items-center justify-center">
+                <AlertTriangle className="w-6 h-6" />
+              </div>
+              
+              <div className="space-y-2">
+                <h3 className="text-xl font-bold text-neutral-900">
+                  Delete {personToDelete.name}?
+                </h3>
+                <p className="text-xs text-neutral-600 leading-relaxed">
+                  This will permanently delete this person, all recorded memories, and complete conversation history from your device. This action cannot be undone.
+                </p>
+              </div>
+
+              <div className="flex items-center justify-end gap-3 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setPersonToDelete(null)}
+                  className="px-4 py-2 rounded-full border border-neutral-300 text-xs font-medium text-neutral-700 hover:bg-neutral-100 transition-colors cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  onClick={handleDeleteConfirm}
+                  className="px-5 py-2 rounded-full bg-red-600 text-white text-xs font-semibold hover:bg-red-700 transition-colors flex items-center gap-1.5 cursor-pointer shadow-xs"
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
+                  <span>Delete Person</span>
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
 
     </div>
   );

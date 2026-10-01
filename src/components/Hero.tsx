@@ -83,7 +83,7 @@ export const Hero: React.FC<HeroProps> = ({ onCreateClick, onHowItWorksClick }) 
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="text-4xl sm:text-5xl lg:text-[58px] font-bold text-neutral-900 tracking-tight leading-[1.08] text-balance"
+              className="text-3xl sm:text-5xl lg:text-[58px] font-bold text-neutral-900 tracking-tight leading-[1.12] sm:leading-[1.08] text-balance"
             >
               Some connections deserve{' '}
               <span className="text-[#0D9488] font-semibold inline-block relative">
@@ -104,7 +104,7 @@ export const Hero: React.FC<HeroProps> = ({ onCreateClick, onHowItWorksClick }) 
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="text-lg sm:text-xl text-neutral-600 font-normal leading-relaxed max-w-xl"
+              className="text-base sm:text-lg lg:text-xl text-neutral-600 font-normal leading-relaxed max-w-xl"
             >
               Create a private AI recreation of someone meaningful to you, shaped by what you remember and choose to share.
             </motion.p>
@@ -114,11 +114,11 @@ export const Hero: React.FC<HeroProps> = ({ onCreateClick, onHowItWorksClick }) 
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2 max-w-md sm:max-w-none"
+              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2 max-w-md sm:max-w-none"
             >
               <button
                 onClick={onCreateClick}
-                className="w-full sm:w-auto px-8 py-3.5 text-base font-medium text-white bg-neutral-900 hover:bg-neutral-800 rounded-full transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-2 group cursor-pointer"
+                className="w-full sm:w-auto px-7 sm:px-8 py-3.5 text-sm sm:text-base font-medium text-white bg-neutral-900 hover:bg-neutral-800 rounded-full transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-2 group cursor-pointer"
               >
                 <span>Talk to someone</span>
                 <ArrowRight className="w-4 h-4 text-teal-300 group-hover:translate-x-1 transition-transform" />
@@ -126,7 +126,7 @@ export const Hero: React.FC<HeroProps> = ({ onCreateClick, onHowItWorksClick }) 
 
               <button
                 onClick={onHowItWorksClick}
-                className="w-full sm:w-auto px-7 py-3.5 text-base font-medium text-neutral-800 hover:text-neutral-950 rounded-full border border-neutral-300/80 bg-white/70 hover:bg-white hover:border-neutral-400 transition-all duration-200 shadow-xs cursor-pointer text-center"
+                className="w-full sm:w-auto px-6 sm:px-7 py-3.5 text-sm sm:text-base font-medium text-neutral-800 hover:text-neutral-950 rounded-full border border-neutral-300/80 bg-white/70 hover:bg-white hover:border-neutral-400 transition-all duration-200 shadow-xs cursor-pointer text-center"
               >
                 How it works
               </button>
@@ -137,7 +137,7 @@ export const Hero: React.FC<HeroProps> = ({ onCreateClick, onHowItWorksClick }) 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="pt-4 border-t border-neutral-200/60 flex flex-wrap items-center gap-y-2 gap-x-6 text-xs text-neutral-500"
+              className="pt-4 border-t border-neutral-200/60 flex flex-wrap items-center gap-y-2 gap-x-4 sm:gap-x-6 text-[11px] sm:text-xs text-neutral-500"
             >
               <div className="flex items-center gap-1.5">
                 <ShieldCheck className="w-4 h-4 text-teal-600" />
@@ -152,14 +152,14 @@ export const Hero: React.FC<HeroProps> = ({ onCreateClick, onHowItWorksClick }) 
           </motion.div>
 
           {/* Right Column: Visual Composition with floating cards, portraits & curved paths */}
-          <div className="lg:col-span-6 relative mt-6 lg:mt-0 flex justify-center w-full overflow-hidden sm:overflow-visible">
+          <div className="lg:col-span-6 relative mt-8 lg:mt-0 flex justify-center w-full overflow-hidden sm:overflow-visible">
             
             {/* The Asymmetric Composition Container */}
             <motion.div 
               initial={{ opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-              className="relative w-full max-w-[360px] sm:max-w-[540px] h-[480px] sm:h-[580px] mx-auto"
+              className="relative w-full max-w-[310px] sm:max-w-[540px] h-[420px] sm:h-[580px] mx-auto"
             >
 
               {/* Decorative Curving Dotted Memory Trajectory */}
@@ -194,9 +194,9 @@ export const Hero: React.FC<HeroProps> = ({ onCreateClick, onHowItWorksClick }) 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute top-4 right-4 sm:right-14 w-[210px] sm:w-[280px] rounded-3xl bg-white p-2 sm:p-2.5 shadow-[0_20px_50px_rgba(13,148,136,0.08)] border border-neutral-200/90 z-10 transition-transform duration-300 hover:-translate-y-1"
+                className="absolute top-2 right-2 sm:top-4 sm:right-14 w-[170px] sm:w-[280px] rounded-2xl sm:rounded-3xl bg-white p-1.5 sm:p-2.5 shadow-[0_20px_50px_rgba(13,148,136,0.08)] border border-neutral-200/90 z-10 transition-transform duration-300 hover:-translate-y-1"
               >
-                <div className="relative aspect-4/3 rounded-2xl overflow-hidden bg-neutral-100">
+                <div className="relative aspect-4/3 rounded-xl sm:rounded-2xl overflow-hidden bg-neutral-100">
                   <img
                     src={grandfatherImg}
                     alt="A kind, smiling grandfather in warm natural light"
@@ -204,7 +204,7 @@ export const Hero: React.FC<HeroProps> = ({ onCreateClick, onHowItWorksClick }) 
                     className="w-full h-full object-cover object-center filter saturate-[0.95]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-                  <div className="absolute bottom-2.5 left-3 text-white text-[11px] sm:text-xs font-medium drop-shadow-sm">
+                  <div className="absolute bottom-2 left-2.5 sm:bottom-2.5 sm:left-3 text-white text-[10px] sm:text-xs font-medium drop-shadow-sm">
                     Grandpa Arthur · 1941–2020
                   </div>
                 </div>
@@ -215,14 +215,14 @@ export const Hero: React.FC<HeroProps> = ({ onCreateClick, onHowItWorksClick }) 
                 initial={{ opacity: 0, y: -12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.45 }}
-                className="absolute top-0 right-0 sm:-right-4 bg-white/95 backdrop-blur-sm px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-2xl border border-neutral-200/80 shadow-[0_10px_25px_rgba(0,0,0,0.05)] z-20 flex items-center gap-2 sm:gap-2.5"
+                className="absolute top-0 right-0 sm:-right-4 bg-white/95 backdrop-blur-sm px-2.5 py-1.5 sm:px-3.5 sm:py-2.5 rounded-xl sm:rounded-2xl border border-neutral-200/80 shadow-[0_10px_25px_rgba(0,0,0,0.05)] z-20 flex items-center gap-1.5 sm:gap-2.5"
               >
-                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full overflow-hidden shrink-0 border border-neutral-100">
+                <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full overflow-hidden shrink-0 border border-neutral-100">
                   <img src={grandfatherImg} alt="Arthur avatar" className="w-full h-full object-cover" />
                 </div>
                 <div className="text-left">
-                  <div className="text-[11px] sm:text-xs font-semibold text-neutral-900 leading-tight">Arthur Vance</div>
-                  <div className="text-[10px] sm:text-[11px] text-teal-700 font-medium">Grandfather</div>
+                  <div className="text-[10px] sm:text-xs font-semibold text-neutral-900 leading-tight">Arthur Vance</div>
+                  <div className="text-[9px] sm:text-[11px] text-teal-700 font-medium">Grandfather</div>
                 </div>
               </motion.div>
 
@@ -231,13 +231,13 @@ export const Hero: React.FC<HeroProps> = ({ onCreateClick, onHowItWorksClick }) 
                 initial={{ opacity: 0, x: -16 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.55 }}
-                className="absolute top-28 sm:top-36 left-0 sm:left-4 bg-white/95 backdrop-blur-sm px-3 sm:px-4 py-2 sm:py-2.5 rounded-2xl border border-neutral-200/80 shadow-[0_10px_30px_rgba(0,0,0,0.06)] z-20 flex flex-col gap-0.5 sm:gap-1 max-w-[170px] sm:max-w-[210px]"
+                className="absolute top-20 sm:top-36 left-0 sm:left-4 bg-white/95 backdrop-blur-sm px-2.5 py-1.5 sm:px-4 sm:py-2.5 rounded-xl sm:rounded-2xl border border-neutral-200/80 shadow-[0_10px_30px_rgba(0,0,0,0.06)] z-20 flex flex-col gap-0.5 sm:gap-1 max-w-[140px] sm:max-w-[210px]"
               >
-                <div className="flex items-center gap-1.5 text-[10px] sm:text-[11px] font-semibold text-neutral-800">
-                  <Bookmark className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-teal-600" />
+                <div className="flex items-center gap-1.5 text-[9px] sm:text-[11px] font-semibold text-neutral-800">
+                  <Bookmark className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-teal-600 shrink-0" />
                   <span className="truncate">Story: Cape May</span>
                 </div>
-                <div className="flex items-center gap-1.5 text-[9px] sm:text-[10px] text-neutral-500">
+                <div className="flex items-center gap-1 text-[8px] sm:text-[10px] text-neutral-500">
                   <span className="text-teal-700 font-medium">Summer 1974</span>
                   <span>·</span>
                   <span>Recorded</span>
@@ -249,9 +249,9 @@ export const Hero: React.FC<HeroProps> = ({ onCreateClick, onHowItWorksClick }) 
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute bottom-16 sm:bottom-16 right-2 sm:right-8 w-[170px] sm:w-[240px] rounded-3xl bg-white p-2 sm:p-2.5 shadow-[0_25px_60px_rgba(0,0,0,0.09)] border border-neutral-200/90 z-15 transition-transform duration-300 hover:-translate-y-1"
+                className="absolute bottom-12 sm:bottom-16 right-2 sm:right-8 w-[140px] sm:w-[240px] rounded-2xl sm:rounded-3xl bg-white p-1.5 sm:p-2.5 shadow-[0_25px_60px_rgba(0,0,0,0.09)] border border-neutral-200/90 z-15 transition-transform duration-300 hover:-translate-y-1"
               >
-                <div className="relative aspect-square rounded-2xl overflow-hidden bg-neutral-100">
+                <div className="relative aspect-square rounded-xl sm:rounded-2xl overflow-hidden bg-neutral-100">
                   <img
                     src={motherImg}
                     alt="A joyful mother with an authentic warm laugh"
@@ -259,7 +259,7 @@ export const Hero: React.FC<HeroProps> = ({ onCreateClick, onHowItWorksClick }) 
                     className="w-full h-full object-cover object-top filter saturate-[0.98]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-                  <div className="absolute bottom-2 left-2.5 sm:bottom-2.5 sm:left-3 text-white text-[11px] sm:text-xs font-medium drop-shadow-sm">
+                  <div className="absolute bottom-1.5 left-2 sm:bottom-2.5 sm:left-3 text-white text-[10px] sm:text-xs font-medium drop-shadow-sm">
                     Eleanor · Warmth & Humor
                   </div>
                 </div>
@@ -286,7 +286,7 @@ export const Hero: React.FC<HeroProps> = ({ onCreateClick, onHowItWorksClick }) 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.65, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute bottom-0 sm:bottom-2 right-0 sm:right-2 bg-white/98 backdrop-blur-md p-3 sm:p-3.5 rounded-2xl border border-neutral-200/90 shadow-[0_20px_40px_rgba(13,148,136,0.12)] z-30 w-full max-w-[290px] sm:max-w-[280px]"
+                className="absolute bottom-0 sm:bottom-2 right-0 sm:right-2 bg-white/98 backdrop-blur-md p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl border border-neutral-200/90 shadow-[0_20px_40px_rgba(13,148,136,0.12)] z-30 w-full max-w-[260px] sm:max-w-[280px]"
               >
                 <div className="flex items-center justify-between gap-3 mb-2">
                   <div className="flex items-center gap-2">
