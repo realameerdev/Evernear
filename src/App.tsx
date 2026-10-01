@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { Navbar } from './components/Navbar.tsx';
 import { Hero } from './components/Hero.tsx';
 import { TrustBar } from './components/TrustBar.tsx';
@@ -14,13 +14,14 @@ import { MemoryAndPersonalization } from './components/MemoryAndPersonalization.
 import { PrivacyDignity } from './components/PrivacyDignity.tsx';
 import { FinalCTA } from './components/FinalCTA.tsx';
 import { Footer } from './components/Footer.tsx';
-import { BackgroundAtmosphere } from './components/BackgroundAtmosphere.tsx';
-import { CreateSomeoneFlow } from './components/CreateSomeoneFlow.tsx';
-import { PersonProfile } from './components/PersonProfile.tsx';
-import { MyPeopleWorkspace } from './components/MyPeopleWorkspace.tsx';
-import { ConversationDialog } from './components/ConversationDialog.tsx';
 import { CreatedPerson } from './types/person.ts';
 import { getVaultPeople } from './utils/vaultStorage.ts';
+
+// Dynamic code-splitting for subviews to maximize landing page performance
+const CreateSomeoneFlow = lazy(() => import('./components/CreateSomeoneFlow.tsx').then(m => ({ default: m.CreateSomeoneFlow })));
+const PersonProfile = lazy(() => import('./components/PersonProfile.tsx').then(m => ({ default: m.PersonProfile })));
+const MyPeopleWorkspace = lazy(() => import('./components/MyPeopleWorkspace.tsx').then(m => ({ default: m.MyPeopleWorkspace })));
+const ConversationDialog = lazy(() => import('./components/ConversationDialog.tsx').then(m => ({ default: m.ConversationDialog })));
 
 type AppView = 'landing' | 'my-people' | 'create' | 'profile';
 
@@ -99,17 +100,19 @@ export default function App() {
   // View: Create Someone Flow
   if (currentView === 'create') {
     return (
-      <CreateSomeoneFlow
-        onCancel={handleCancelCreate}
-        onPersonCreated={handlePersonCreated}
-      />
+      <Suspense fallback={<div className="min-h-screen bg-[#FAF8F5] flex items-center justify-center text-teal-800 text-xs">Opening sanctuary...</div>}>
+        <CreateSomeoneFlow
+          onCancel={handleCancelCreate}
+          onPersonCreated={handlePersonCreated}
+        />
+      </Suspense>
     );
   }
 
   // View: Person Profile
   if (currentView === 'profile' && activePerson) {
     return (
-      <>
+      <Suspense fallback={<div className="min-h-screen bg-[#FAF8F5] flex items-center justify-center text-teal-800 text-xs">Loading memorial...</div>}>
         <PersonProfile
           person={activePerson}
           onBackToSanctuary={() => setCurrentView('my-people')}
@@ -122,14 +125,14 @@ export default function App() {
           onClose={() => setConversationTargetPerson(null)}
           onPersonUpdated={handlePersonUpdated}
         />
-      </>
+      </Suspense>
     );
   }
 
   // View: My People Workspace
   if (currentView === 'my-people') {
     return (
-      <>
+      <Suspense fallback={<div className="min-h-screen bg-[#FAF8F5] flex items-center justify-center text-teal-800 text-xs">Loading vault...</div>}>
         <MyPeopleWorkspace
           people={vaultPeople}
           onSelectPerson={handleSelectPerson}
@@ -143,16 +146,13 @@ export default function App() {
           onClose={() => setConversationTargetPerson(null)}
           onPersonUpdated={handlePersonUpdated}
         />
-      </>
+      </Suspense>
     );
   }
 
   // Default View: Full Landing Page
   return (
-    <div className="min-h-screen bg-[#FAF8F5] text-neutral-900 flex flex-col font-sans selection:bg-teal-100 selection:text-teal-900 relative">
-      {/* Soft animated background atmosphere */}
-      <BackgroundAtmosphere />
-
+    <div className="min-h-screen bg-[#FAF8F5] text-neutral-900 flex flex-col font-sans selection:bg-teal-100 selection:text-teal-900">
       {/* Top Bar Contract */}
       <Navbar
         onCreateClick={handleStartCreate}

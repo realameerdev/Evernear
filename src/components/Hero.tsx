@@ -45,32 +45,13 @@ export const Hero: React.FC<HeroProps> = ({ onCreateClick, onHowItWorksClick }) 
 
   return (
     <section className="relative pt-28 pb-20 md:pt-36 md:pb-28 overflow-hidden">
-      {/* Background Soft Teal Atmospheric Ambient Glows (matching reference) */}
-      <motion.div 
-        animate={{
-          scale: [1, 1.08, 0.96, 1],
-          opacity: [0.55, 0.7, 0.6, 0.55],
-        }}
-        transition={{
-          duration: 14,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-        className="absolute top-12 right-4 w-[650px] h-[650px] rounded-full pointer-events-none blur-3xl glow-teal-subtle -z-10"
+      {/* Background Soft Teal Atmospheric Ambient Glows (static, fast) */}
+      <div 
+        className="absolute top-12 right-4 w-[650px] h-[650px] rounded-full pointer-events-none opacity-60 blur-3xl glow-teal-subtle -z-10"
         aria-hidden="true" 
       />
-      <motion.div 
-        animate={{
-          scale: [0.95, 1.12, 1, 0.95],
-          opacity: [0.35, 0.5, 0.4, 0.35],
-        }}
-        transition={{
-          duration: 18,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 2,
-        }}
-        className="absolute top-48 right-1/4 w-[380px] h-[380px] rounded-full pointer-events-none blur-2xl bg-teal-100/60 -z-10"
+      <div 
+        className="absolute top-48 right-1/4 w-[380px] h-[380px] rounded-full pointer-events-none opacity-40 blur-2xl bg-teal-100/60 -z-10"
         aria-hidden="true"
       />
 

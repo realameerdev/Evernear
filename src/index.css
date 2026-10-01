@@ -37,16 +37,3 @@ button, input, textarea, select, a, p, span, h1, h2, h3, h4, h5, h6, div {
   stroke-dasharray: 4 6;
 }
 
-@keyframes gentle-float {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-8px) rotate(0.5deg);
-  }
-}
-
-.animate-gentle-float {
-  animation: gentle-float 8s ease-in-out infinite;
-}
-
